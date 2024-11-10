@@ -456,8 +456,6 @@ def remove_from_cart(request, cart_item_id):
     return redirect('main:view_cart')
 
 
-
-
 def import_csv(request):
     # Define the path to the CSV file
     csv_file_path = "static/csv/data.csv"  # Adjust this to the correct path of your CSV file
@@ -476,7 +474,7 @@ def import_csv(request):
                 # Process and store the data in the database
                 toko, created = TokoEntry.objects.get_or_create(
                     name=row['TOKO'],
-                    defaults={'location': row['LOKASI']}
+                    defaults={'category': row['KATEGORI']}
                 )
                 
                 ProductEntry.objects.update_or_create(
@@ -485,10 +483,9 @@ def import_csv(request):
                         'price': row['HARGA_RETAIL'],
                         'description': row['KATEGORI'],
                         'image': row['URL'],
-                        'toko': toko
+                        'toko': toko,# Make sure to pass only the TokoEntry instance, not the tuple
                     }
                 )
-                
         messages.success(request, 'Data CSV successfully imported into the database.')
     except Exception as e:
         messages.error(request, f'Error processing the CSV file: {e}')

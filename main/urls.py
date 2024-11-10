@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import add_to_cart, checkout, checkout_success, profile, index, register, login_user, logout_user, remove_from_cart, show_admin, create_toko_entry, create_product_entry, show_xml, show_json, edit_toko, edit_product, delete_toko, delete_product, show_xml_toko_by_id, show_xml_produk_by_id, show_json_toko_by_id, show_json_produk_by_id, product_page, product_detail, add_review, edit_review, delete_review, toko_by_category, view_cart
+from .views import add_to_cart, checkout, checkout_success, import_csv, profile, index, register, login_user, logout_user, remove_from_cart, show_admin, create_toko_entry, create_product_entry, show_xml, show_json, edit_toko, edit_product, delete_toko, delete_product, show_xml_toko_by_id, show_xml_produk_by_id, show_json_toko_by_id, show_json_produk_by_id, product_page, product_detail, add_review, edit_review, delete_review, toko_by_category, view_cart
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
+
 app_name = 'main'
 
 urlpatterns = [
@@ -34,6 +36,7 @@ urlpatterns = [
     path('remove_from_cart/<int:cart_item_id>/', remove_from_cart, name='remove_from_cart'),
     path('checkout/', checkout, name='checkout'),
     path('checkout/success/', checkout_success, name='checkout_success'),
+    path('import-csv/', views.import_csv, name='import_csv'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
